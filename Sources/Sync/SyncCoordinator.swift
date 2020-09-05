@@ -11,7 +11,7 @@ import CoreData
 public final class SyncCoordinator {
 
     public let viewContext: NSManagedObjectContext
-    let syncContext: NSManagedObjectContext
+    public let syncContext: NSManagedObjectContext
 
     public let remote: SyncRemote
 
