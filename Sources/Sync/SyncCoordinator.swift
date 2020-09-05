@@ -42,7 +42,6 @@ public final class SyncCoordinator {
     }
 
     private func fetchRemoteDataForApplicationDidBecomeActive() {
-        print("Darijan 4")
         perform {
             for changeProcessor in self.changeProcessors {
                 changeProcessor.fetchLatestRemoteRecords(in: self)
@@ -60,7 +59,6 @@ extension SyncCoordinator: ApplicationActiveStateObserving {
     }
 
     func applicationDidBecomeActive() {
-        print("Darijan 3")
         fetchRemoteDataForApplicationDidBecomeActive()
     }
 
