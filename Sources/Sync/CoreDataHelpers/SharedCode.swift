@@ -21,6 +21,13 @@ extension NSManagedObjectContext {
         }
     }
 
+    public func performChanges(block: @escaping () -> ()) {
+        perform {
+            block()
+            _ = self.saveOrRollback()
+        }
+    }
+
     public func insertObject<A: NSManagedObject>() -> A {
         let entityName = A.entity().name!
         guard let obj = NSEntityDescription.insertNewObject(forEntityName: entityName, into: self) as? A else { fatalError("Wrong object type") }
