@@ -8,14 +8,20 @@
 
 import CoreData
 
-public protocol ChangeProcessor {
+protocol ElementChangeProcessor: ChangeProcessor {
+
     associatedtype Element: NSManagedObject
 
     /// Any objects matching the predicate.
     func processChangedLocalElements(_ elements: [Element], in context: ChangeProcessorContext)
+}
 
+public protocol ChangeProcessor {
     /// Called at startup to give the processor a chance to configure itself.
 //    func setup(for context: ChangeProcessorContext)
+//
+//    /// Respond to changes of locally inserted or updated objects.
+    func processChangedLocalObjects(_ objects: [NSManagedObject], in context: ChangeProcessorContext)
 //
 //    /// Upon launch these fetch requests are executed and the resulting objects are passed to `process(changedLocalObjects:)`.
 //    /// This allows the change processor to resume pending local changes.
