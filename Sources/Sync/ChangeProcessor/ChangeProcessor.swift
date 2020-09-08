@@ -14,6 +14,28 @@ public protocol ElementChangeProcessor: ChangeProcessor {
 
     /// Any objects matching the predicate.
     func processChangedLocalElements(_ elements: [Element], in context: ChangeProcessorContext)
+
+    /// The elements that this change processor is interested in.
+    /// Used by `entityAndPredicateForLocallyTrackedObjects(in:)`.
+    var predicateForLocallyTrackedElements: NSPredicate { get }
+}
+
+public extension ElementChangeProcessor {
+    func processChangedLocalObjects(_ objects: [NSManagedObject], in context: ChangeProcessorContext) {
+        // Filters the `NSManagedObjects` according to the `entityAndPredicateForLocallyTrackedObjects(in:)` and forwards the result to `processChangedLocalElements(_:context:completion:)`.
+        let matching = objects.filter(entityAndPredicateForLocallyTrackedObjects(in: context)!)
+
+        if let elements = matching as? [Element] {
+            let newElements = elements// elementsInProgress.objectsToProcess(from: elements)
+            processChangedLocalElements(newElements, in: context)
+        }
+    }
+
+    internal func entityAndPredicateForLocallyTrackedObjects(in context: ChangeProcessorContext) -> EntityAndPredicate<NSManagedObject>? {
+        let predicate = predicateForLocallyTrackedElements
+
+        return EntityAndPredicate(entity: Element.entity(), predicate: predicate)
+    }
 }
 
 public protocol ChangeProcessor {
