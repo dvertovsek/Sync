@@ -8,7 +8,7 @@
 
 import CoreData
 
-protocol ElementChangeProcessor: ChangeProcessor {
+public protocol ElementChangeProcessor: ChangeProcessor {
 
     associatedtype Element: NSManagedObject
 
