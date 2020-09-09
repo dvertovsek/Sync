@@ -31,7 +31,7 @@ public extension ElementChangeProcessor {
         }
     }
 
-    internal func entityAndPredicateForLocallyTrackedObjects(in context: ChangeProcessorContext) -> EntityAndPredicate<NSManagedObject>? {
+    func entityAndPredicateForLocallyTrackedObjects(in context: ChangeProcessorContext) -> EntityAndPredicate<NSManagedObject>? {
         let predicate = predicateForLocallyTrackedElements
 
         return EntityAndPredicate(entity: Element.entity(), predicate: predicate)
@@ -47,7 +47,7 @@ public protocol ChangeProcessor {
 //
 //    /// Upon launch these fetch requests are executed and the resulting objects are passed to `process(changedLocalObjects:)`.
 //    /// This allows the change processor to resume pending local changes.
-//    func entityAndPredicateForLocallyTrackedObjects(in context: ChangeProcessorContext) -> EntityAndPredicate<NSManagedObject>?
+    func entityAndPredicateForLocallyTrackedObjects(in context: ChangeProcessorContext) -> EntityAndPredicate<NSManagedObject>?
 //
 //    /// Respond to changes in remote records.
 //    func processRemoteChanges<T>(_ changes: [RemoteRecordChange<T>], in context: ChangeProcessorContext, completion: () -> ())

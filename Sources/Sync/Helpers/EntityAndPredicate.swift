@@ -7,7 +7,7 @@
 
 import CoreData
 
-final class EntityAndPredicate<A : NSManagedObject> {
+public final class EntityAndPredicate<A : NSManagedObject> {
     let entity: NSEntityDescription
     let predicate: NSPredicate
 
@@ -18,14 +18,14 @@ final class EntityAndPredicate<A : NSManagedObject> {
 }
 
 
-//extension EntityAndPredicate {
-//    var fetchRequest: NSFetchRequest<A> {
-//        let request = NSFetchRequest<A>()
-//        request.entity = entity
-//        request.predicate = predicate
-//        return request
-//    }
-//}
+extension EntityAndPredicate {
+    var fetchRequest: NSFetchRequest<A> {
+        let request = NSFetchRequest<A>()
+        request.entity = entity
+        request.predicate = predicate
+        return request
+    }
+}
 
 
 extension Sequence where Iterator.Element: NSManagedObject {
